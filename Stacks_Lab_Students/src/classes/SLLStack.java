@@ -14,29 +14,21 @@ public class SLLStack<E> implements Stack<E>
 		size = 0; 
 	}
 	
-	public E pop() {
-		//implemented
-		SNode<E> ntr = new SNode<E>(); 
-		E etr = null;
-		
-		if (isEmpty()) {
-			return null; 
-		}
-		else {
-			etr = this.pop();
-			ntr.setElement(etr);
-			ntr.setNext(this.top.getNext());
-			this.top.setNext(ntr);
-		}
-		ntr.clean(); 
-		
+	public E pop() throws EmptyStackException {
+		if (isEmpty())
+			throw new EmptyStackException("pop: Stack is empty.");
+		SNode<E> ntr = top;
+		E etr = ntr.getElement(); 
+		top = top.getNext();
+		ntr.clean();
+		size--;
 		return etr;
 	}
 
 	public void push(E e) {
-		// implemented
-		this.top = new SNode<E>(e);
-		
+		SNode<E> nta = new SNode<>(e, top);
+		top = nta;
+		size++; 
 	}
 
 	public E top() {
